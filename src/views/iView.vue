@@ -1,8 +1,11 @@
 <template>
-  <div class="container">
+  <div class="iview-container">
     <Form :model="form" :label-width="80">
       <FormItem label="活动名称">
         <InputDispatcher v-model="form.name" placeholder="Enter something..." />
+      </FormItem>
+      <FormItem label="活动等级">
+        <RateDispatcher v-model="form.level" />
       </FormItem>
       <FormItem label="活动区域">
         <SelectDispatcher v-model="form.region">
@@ -21,6 +24,9 @@
             <TimePickerDispatcher type="time" placeholder="Select time" v-model="form.date2" />
           </Col>
         </Row>
+      </FormItem>
+      <FormItem label="持续时间">
+        <SliderDispatcher v-model="form.duration" :tip-format="tipFormat" />
       </FormItem>
       <FormItem label="即时配送">
         <SwitchDispatcher v-model="form.delivery" />
@@ -63,6 +69,8 @@ export default class iViewDemo extends RWDispatcher {
   private form = {
     name: '618电器折扣日',
     region: 'London',
+    level: 5,
+    duration: 7,
     date1: '2019-06-18',
     date2: new Date(2019, 6, 18, 0, 0, 0),
     delivery: false,
@@ -78,11 +86,16 @@ export default class iViewDemo extends RWDispatcher {
       this.setRWDispatcherState('write')
     }
   }
+
+  tipFormat (val: Number) {
+    return val + '天'
+  }
 }
 </script>
 
-<style lang="less" scoped>
-.container {
+<style lang="less">
+.iview-container {
   text-align: left;
+  padding: 20px;
 }
 </style>
